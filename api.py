@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import json
 
@@ -19,6 +19,6 @@ with open("q-vercel-python.json", "r") as file:
     marks_dict = {student["name"]: student["marks"] for student in students}
 
 @app.get("/api")
-def get_marks(name: list[str]):
+def get_marks(name: list[str] = Query(...)):
     """API endpoint to fetch marks of given students."""
     return {"marks": [marks_dict.get(n, None) for n in name]}
